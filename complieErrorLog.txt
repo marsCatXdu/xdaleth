@@ -1,0 +1,45 @@
+[ 35%] Building CXX object libethcore/CMakeFiles/ethcore.dir/TransactionBase.cpp.o
+In file included from /home/marscat/Desktop/xdaleth/xdalethComplieTest/libethcore/TransactionBase.cpp:26:0:
+/home/marscat/Desktop/xdaleth/xdalethComplieTest/libethcore/TransactionBase.h:142:2: error: ‘string’ does not name a type
+  string extraMsg() const { return m_extraMsg; }
+  ^
+/home/marscat/Desktop/xdaleth/xdalethComplieTest/libethcore/TransactionBase.h:190:2: error: ‘string’ does not name a type
+  string m_extraMsg;  // marsCatXdu XdAleth 新增字符串字段
+  ^
+/home/marscat/Desktop/xdaleth/xdalethComplieTest/libethcore/TransactionBase.h: In function ‘std::ostream& dev::eth::operator<<(std::ostream&, const dev::eth::TransactionBase&)’:
+/home/marscat/Desktop/xdaleth/xdalethComplieTest/libethcore/TransactionBase.h:212:70: error: ‘t’ was not declared in this scope
+  _out << "<-" << _t.safeSender().abridged() << " #" << _t.nonce() << t.extraMsg() << "}";
+                                                                      ^
+/home/marscat/Desktop/xdaleth/xdalethComplieTest/libethcore/TransactionBase.cpp: In constructor ‘dev::eth::TransactionBase::TransactionBase(const dev::eth::TransactionSkeleton&, const Secret&)’:
+/home/marscat/Desktop/xdaleth/xdalethComplieTest/libethcore/TransactionBase.cpp:43:2: error: class ‘dev::eth::TransactionBase’ does not have any field named ‘m_extraMsg’
+  m_extraMsg(_ts.extraMsg);
+  ^
+/home/marscat/Desktop/xdaleth/xdalethComplieTest/libethcore/TransactionBase.cpp:43:17: error: ‘const struct dev::eth::TransactionSkeleton’ has no member named ‘extraMsg’
+  m_extraMsg(_ts.extraMsg);
+                 ^
+/home/marscat/Desktop/xdaleth/xdalethComplieTest/libethcore/TransactionBase.cpp:43:26: error: expected ‘{’ before ‘;’ token
+  m_extraMsg(_ts.extraMsg);
+                          ^
+/home/marscat/Desktop/xdaleth/xdalethComplieTest/libethcore/TransactionBase.cpp: At global scope:
+/home/marscat/Desktop/xdaleth/xdalethComplieTest/libethcore/TransactionBase.cpp:35:80: error: unused parameter ‘_s’ [-Werror=unused-parameter]
+ TransactionBase::TransactionBase(TransactionSkeleton const& _ts, Secret const& _s):
+                                                                                ^
+/home/marscat/Desktop/xdaleth/xdalethComplieTest/libethcore/TransactionBase.cpp:44:10: error: expected constructor, destructor, or type conversion before ‘(’ token
+  m_sender(_ts.from)
+          ^
+/home/marscat/Desktop/xdaleth/xdalethComplieTest/libethcore/TransactionBase.cpp: In constructor ‘dev::eth::TransactionBase::TransactionBase(dev::bytesConstRef, dev::eth::CheckTransaction)’:
+/home/marscat/Desktop/xdaleth/xdalethComplieTest/libethcore/TransactionBase.cpp:75:3: error: ‘m_extraMsg’ was not declared in this scope
+   m_extraMsg = rlp[9].toString();  // XdAleth marsCatXdu 还行，RLP自带这个 toString()，吓死我了
+   ^
+/home/marscat/Desktop/xdaleth/xdalethComplieTest/libethcore/TransactionBase.cpp: In member function ‘void dev::eth::TransactionBase::streamRLP(dev::RLPStream&, dev::eth::IncludeSignature, bool) const’:
+/home/marscat/Desktop/xdaleth/xdalethComplieTest/libethcore/TransactionBase.cpp:192:6: error: ‘m_extraMsg’ was not declared in this scope
+  _s<<m_extraMsg;     // 耶！
+      ^
+cc1plus: all warnings being treated as errors
+libethcore/CMakeFiles/ethcore.dir/build.make:62: recipe for target 'libethcore/CMakeFiles/ethcore.dir/TransactionBase.cpp.o' failed
+make[2]: *** [libethcore/CMakeFiles/ethcore.dir/TransactionBase.cpp.o] Error 1
+CMakeFiles/Makefile2:687: recipe for target 'libethcore/CMakeFiles/ethcore.dir/all' failed
+make[1]: *** [libethcore/CMakeFiles/ethcore.dir/all] Error 2
+Makefile:160: recipe for target 'all' failed
+make: *** [all] Error 2
+
