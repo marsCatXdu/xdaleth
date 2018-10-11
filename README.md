@@ -5,6 +5,9 @@ Might include some really awsome features such as customized decentralized compu
 
 Stay tuned.  
 
+## 博客中有以太坊相关技术文章
+www.marscatxdu.com  
+
 ## 与原生以太坊的区别
 ### 交易结构修改
 在原有交易结构的基础上添加了 extraMsg 字段，类型为 String 。该字段被设计用于随交易直接传输任何信息。  
