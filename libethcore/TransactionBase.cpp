@@ -40,7 +40,7 @@ TransactionBase::TransactionBase(TransactionSkeleton const& _ts, Secret const& _
 	m_gasPrice(_ts.gasPrice),
 	m_gas(_ts.gas),
 	m_data(_ts.data),
-	m_extraMsg(_ts.extraMsg);
+	m_extraMsg(_ts.extraMsg),
 	m_sender(_ts.from)
 {
 	if (_s)

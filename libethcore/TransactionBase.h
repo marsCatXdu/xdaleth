@@ -139,7 +139,7 @@ public:
 	u256 nonce() const { return m_nonce; }
 
 	// marsCatXdu XdAleth 新增字符串字段
-	string extraMsg() const { return m_extraMsg; }
+	std::string extraMsg() const { return m_extraMsg; }
 
 	/// Sets the nonce to the given value. Clears any signature.
 	void setNonce(u256 const& _n) { clearSignature(); m_nonce = _n; }
@@ -209,7 +209,7 @@ inline std::ostream& operator<<(std::ostream& _out, TransactionBase const& _t)
 		_out << "[CREATE]";
 
 	_out << "/" << _t.data().size() << "$" << _t.value() << "+" << _t.gas() << "@" << _t.gasPrice();
-	_out << "<-" << _t.safeSender().abridged() << " #" << _t.nonce() << t.extraMsg() << "}";
+	_out << "<-" << _t.safeSender().abridged() << " #" << _t.nonce() << _t.extraMsg() << "}";
 	return _out;
 }
 
