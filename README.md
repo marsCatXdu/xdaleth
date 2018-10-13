@@ -5,6 +5,15 @@ Might include some really awsome features such as customized decentralized compu
 
 Stay tuned.  
 
+## 下载与编译方式
+```
+$git clone -b dev --recursive https://github.com/marsCatXdu/xdaleth.git  
+$sudo apt-get install libleveldb-dev #Debian Based Linux  
+mkdir build; cd build  # Create a build directory.  
+cmake ..               # Configure the project.  
+cmake --build .        # Build all default targets.  
+
+```
 ## 博客中有以太坊相关技术文章
 www.marscatxdu.com  
 
