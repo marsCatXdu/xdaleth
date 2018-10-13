@@ -212,7 +212,7 @@ struct TransactionSkeleton
 	u256 nonce = Invalid256;
 	u256 gas = Invalid256;
 	u256 gasPrice = Invalid256;
-	std::string extraData;                     // New field added in XdAleth
+	std::string extraMsg;                     // New field added in XdAleth
 
 	// marsCatXdu TODO: 把 extraData 的解析也添加进来
 	std::string userReadable(bool _toProxy, std::function<std::pair<bool, std::string>(TransactionSkeleton const&)> const& _getNatSpec, std::function<std::string(Address const&)> const& _formatAddress) const;

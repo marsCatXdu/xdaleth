@@ -82,8 +82,8 @@ public:
 	virtual h256 submitTransaction(TransactionSkeleton const& _t, Secret const& _secret) = 0;
 
 	/// Submits the given message-call transaction. 
-	/// XdAleth marsCatXdu 添加extraMsg字段
-	void submitTransaction(Secret const& _secret, u256 const& _value, Address const& _dest, bytes const& _data = bytes(), u256 const& _gas = 1000000, u256 const& _gasPrice = DefaultGasPrice, u256 const& _nonce = Invalid256, string const& _extraMsg);
+	/// XdAleth marsCatXdu 添加extraMsg字段。该构造器的默认 extraMsg 值为 "Empty"
+	void submitTransaction(Secret const& _secret, u256 const& _value, Address const& _dest, bytes const& _data = bytes(), u256 const& _gas = 1000000, u256 const& _gasPrice = DefaultGasPrice, u256 const& _nonce = Invalid256, std::string const& _extraMsg="Empty");
 
     /// Imports the given transaction into the transaction queue
 	virtual h256 importTransaction(Transaction const& _t) = 0;

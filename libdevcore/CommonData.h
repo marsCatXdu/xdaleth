@@ -87,6 +87,16 @@ template <class T> static bool isHash(std::string const& _hash)
 {
 	return (_hash.size() == T::size * 2 || (_hash.size() == T::size * 2 + 2 && _hash.substr(0, 2) == "0x")) && isHex(_hash);
 }
+/**
+ * marsCatXdu
+ * XdAleth 多此一举
+ * 
+ * 总感觉这么干是多此一举，但是直接json取值赋值好像会引起运算符重载的问题，干脆这么再来一遍吧
+ */
+inline std::string asString(std::string const& _b)
+{
+	return _b;
+}
 
 /// Converts byte array to a string containing the same (binary) data. Unless
 /// the byte array happens to contain ASCII data, this won't be printable.

@@ -120,6 +120,19 @@ inline int jsToInt(std::string const& _s)
 	DEV_IGNORE_EXCEPTIONS(ret = std::stoi(_s, nullptr, 0));
 	return ret;
 }
+/**
+ * marsCatXdu
+ * XdAleth 添加字段解析函数——获取输入的json字段字符串，返回同样的字符串
+ * 
+ * 总感觉这么干是多此一举，但是直接json取值赋值好像会引起运算符重载的问题，干脆这么再来一遍吧
+*/
+inline std::string jsToString(std::string const& _s)
+{
+	std::string ret = "";
+	ret = _s;
+	// DEV_IGNORE_EXCEPTIONS(ret = std::stoi(_s, nullptr, 0));		这句话没仔细研究该咋用，先这样吧不炸就行炸了再说。。。。
+	return ret;
+}
 
 inline std::string jsToDecimal(std::string const& _s)
 {

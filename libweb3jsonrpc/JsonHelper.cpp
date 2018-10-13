@@ -384,7 +384,7 @@ TransactionSkeleton toTransactionSkeleton(Json::Value const& _json)
         return ret;
 
     if (!_json["from"].empty())
-        ret.from = jsToAddress(_json["from"].asString());
+        ret.from = jsToAddress(_json["from"].asString());       // 这玩意应该是个字符串进去的
     if (!_json["to"].empty() && _json["to"].asString() != "0x" && !_json["to"].asString().empty())
         ret.to = jsToAddress(_json["to"].asString());
     else
@@ -408,8 +408,8 @@ TransactionSkeleton toTransactionSkeleton(Json::Value const& _json)
     if (!_json["nonce"].empty())
         ret.nonce = jsToU256(_json["nonce"].asString());
 
-    if (!_json["extraMsg"].empty())                     // New field added in XdAleth
-        ret.extraMsg = jsToU256(_json["extraMsg"].asString());
+    if (!_json["extraMsg"].empty())                     // New field added in XdAleth by marsCatXdu
+        ret.extraMsg = jsToString(_json["extraMsg"].asString());               // 不知道这样子行不行。已通过编译，不清楚是不是用了正确的重载函数
 
     return ret;
 }
