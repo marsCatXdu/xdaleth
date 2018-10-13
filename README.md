@@ -43,14 +43,22 @@ JsonHelper中的解析交易的工具也改了，加了新的字段
 这玩意边写边忘啊。。。。。  
 
 ## 开发日志
+### 2018.10.13  
+- 编译错误问题修复  
+- 交易的发送及接收验证已经通过测试，只是在 extraMsg 结果输出时有一个 0x 前缀，应该是在某个解析过程中拼上去的，懒得改了先做别的之后再改吧。。。。   
+
+### 2018.10.6  
+- 【未测试】修改了解析之类的东西，加了一堆注释，从 web3 查交易获取交易 json 的解析也扩展了  
+- 做了个编译测试，炸了  
+
 ### 2018.10.5
-【未测试】完成了通过 IPC 调用 eth_sendTransaction 为入口的，从 json 到 TransactionSkeleton 转化模块的修改；  
-【未测试】完成了使用 TransactionSkeleton 构造 Transaction 的模块修改；  
-【未测试】完成了通过 IPC 调用 eth_signTransaction 为入口的，将 json 交易转化为签名后 RLP 的模块的修改；  
-还有一些已经想不起来了的和上面配套的东西。。。  
-发送交易还剩下一个 sendRawTransaction，我估计那个没啥要改的了（FLAG），要是居然果真没得改那么发送部分就全都写完了  
-附修改文件的目录  
-$git status   
+- 【未测试】完成了通过 IPC 调用 eth_sendTransaction 为入口的，从 json 到 TransactionSkeleton 转化模块的修改；  
+- 【未测试】完成了使用 TransactionSkeleton 构造 Transaction 的模块修改；  
+- 【未测试】完成了通过 IPC 调用 eth_signTransaction 为入口的，将 json 交易转化为签名后 RLP 的模块的修改；  
+- 还有一些已经想不起来了的和上面配套的东西。。。  
+- 发送交易还剩下一个 sendRawTransaction，我估计那个没啥要改的了（FLAG），要是居然果真没得改那么发送部分就全都写完了  
+- 附修改文件的目录  
+- $git status   
 >	modified:   README.md  
 >	modified:   libethcore/Common.h  
 >	modified:   libethcore/TransactionBase.cpp  
@@ -61,7 +69,3 @@ $git status
 >	modified:   libweb3jsonrpc/Eth.cpp  
 >	modified:   libweb3jsonrpc/Eth.h  
 >	modified:   libweb3jsonrpc/JsonHelper.cpp  
-
-### 2018.10.6  
-【未测试】修改了解析之类的东西，加了一堆注释，从 web3 查交易获取交易 json 的解析也扩展了  
-做了个编译测试，炸了  
