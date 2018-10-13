@@ -30,7 +30,7 @@
 #include <libdevcore/RLP.h>
 #include <libdevcore/SHA3.h>
 #include <algorithm>
-
+#include <iostream>
 namespace dev
 {
 namespace eth

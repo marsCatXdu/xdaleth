@@ -14,6 +14,7 @@
     You should have received a copy of the GNU General Public License
     along with cpp-ethereum.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include <iostream>
 
 #include "SealEngine.h"
 #include "TransactionBase.h"
@@ -108,26 +109,33 @@ void SealEngineFace::verifyTransaction(ImportRequirements::value _ir, Transactio
 {
     if ((_ir & ImportRequirements::TransactionSignatures) && _header.number() < chainParams().EIP158ForkBlock && _t.isReplayProtected())
         BOOST_THROW_EXCEPTION(InvalidSignature());
-
+    
     if ((_ir & ImportRequirements::TransactionSignatures) &&
         _header.number() < chainParams().experimentalForkBlock && _t.hasZeroSignature())
         BOOST_THROW_EXCEPTION(InvalidSignature());
-
+    
     if ((_ir & ImportRequirements::TransactionBasic) &&
         _header.number() >= chainParams().experimentalForkBlock && _t.hasZeroSignature() &&
         (_t.value() != 0 || _t.gasPrice() != 0 || _t.nonce() != 0))
         BOOST_THROW_EXCEPTION(InvalidZeroSignatureTransaction() << errinfo_got((bigint)_t.gasPrice()) << errinfo_got((bigint)_t.value()) << errinfo_got((bigint)_t.nonce()));
-
+    
     if (_header.number() >= chainParams().homesteadForkBlock && (_ir & ImportRequirements::TransactionSignatures) && _t.hasSignature())
         _t.checkLowS();
-
+    
     eth::EVMSchedule const& schedule = evmSchedule(_header.number());
-
+    
     // Pre calculate the gas needed for execution
     if ((_ir & ImportRequirements::TransactionBasic) && _t.baseGasRequired(schedule) > _t.gas())
         BOOST_THROW_EXCEPTION(OutOfGasIntrinsic() << RequirementError(
                                   (bigint)(_t.baseGasRequired(schedule)), (bigint)_t.gas()));
-
+    std::cout<<"==============================炸 1.4.1.7 \n";
+    std::cout<<"@BOOM =======_t.gas="<<_t.gas()<<std::endl;
+    std::cout<<"@BOOM =======_header.gasLimit="<<_header.gasLimit()<<std::endl;
+/**
+ * marsCatXdu Modified
+ * 
+ * 正常发送交易的时候会在下面这句话爆炸，修复中
+*/
     // Avoid transactions that would take us beyond the block gas limit.
     if (_gasUsed + (bigint)_t.gas() > _header.gasLimit())
         BOOST_THROW_EXCEPTION(BlockGasLimitReached() << RequirementErrorComment(

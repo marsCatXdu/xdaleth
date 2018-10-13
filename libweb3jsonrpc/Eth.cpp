@@ -21,6 +21,8 @@
  * @date 2014
  */
 
+#include <iostream>
+
 #include <csignal>
 #include <jsonrpccpp/common/exception.h>
 #include <libdevcore/CommonData.h>
@@ -259,6 +261,7 @@ string Eth::eth_sendTransaction(Json::Value const& _json)		// 这玩意应该算
 		pair<bool, Secret> ar = m_ethAccounts.authenticate(t);
 		if (!ar.first)
 		{
+			// 进来这里了，然后炸了，第一句就炸了
 			h256 txHash = client()->submitTransaction(t, ar.second);	// 提交构造好的交易。。。话说这个 client() 指的咋看也不是 interface 啊
 																		// 是指向 Client 的吧，难不成 Interface 反向派生了？
 			std::cout<<"=== Eth.cpp at client()->submitTransaction() ===\n";	// 直接这么打个标得了……
@@ -266,13 +269,17 @@ string Eth::eth_sendTransaction(Json::Value const& _json)		// 这玩意应该算
 		}
 		else
 		{
+			std::cout<<"==============================炸 8 \n";
 			m_ethAccounts.queueTransaction(t);
+			std::cout<<"==============================炸 9 \n";
 			h256 emptyHash;
+			std::cout<<"==============================炸 10 \n";
 			return toJS(emptyHash); // TODO: give back something more useful than an empty hash.
 		}
 	}
 	catch (Exception const&)
 	{
+		std::cout<<"炸 Eth::eth_sendTransaction\n";
 		throw JsonRpcException(exceptionToErrorMessage());
 	}
 }

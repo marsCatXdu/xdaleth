@@ -233,7 +233,8 @@ void Executive::initialize(Transaction const& _transaction)
     try
     {
         // 在 SealEngine。看起来只算了 gas
-        m_sealEngine.verifyTransaction(ImportRequirements::Everything, m_t, m_envInfo.header(), m_envInfo.gasUsed());   
+        std::cout<<"==============================炸 1.4 \n";
+        m_sealEngine.verifyTransaction(ImportRequirements::Everything, m_t, m_envInfo.header(), m_envInfo.gasUsed());
     }
     catch (Exception const& ex)
     {
@@ -262,7 +263,7 @@ void Executive::initialize(Transaction const& _transaction)
             m_excepted = TransactionException::InvalidNonce;
             BOOST_THROW_EXCEPTION(InvalidNonce() << RequirementError((bigint)nonceReq, (bigint)m_t.nonce()));
         }
-
+        std::cout<<"==============================炸 1.8 \n";
         // Avoid unaffordable transactions.
         bigint gasCost = (bigint)m_t.gas() * m_t.gasPrice();
         bigint totalCost = m_t.value() + gasCost;
