@@ -128,13 +128,11 @@ void SealEngineFace::verifyTransaction(ImportRequirements::value _ir, Transactio
     if ((_ir & ImportRequirements::TransactionBasic) && _t.baseGasRequired(schedule) > _t.gas())
         BOOST_THROW_EXCEPTION(OutOfGasIntrinsic() << RequirementError(
                                   (bigint)(_t.baseGasRequired(schedule)), (bigint)_t.gas()));
-    std::cout<<"==============================炸 1.4.1.7 \n";
-    std::cout<<"@BOOM =======_t.gas="<<_t.gas()<<std::endl;
-    std::cout<<"@BOOM =======_header.gasLimit="<<_header.gasLimit()<<std::endl;
+    //std::cout<<"@BOOM =======_t.gas="<<_t.gas()<<std::endl;
+    //std::cout<<"@BOOM =======_header.gasLimit="<<_header.gasLimit()<<std::endl;
 /**
  * marsCatXdu Modified
- * 
- * 正常发送交易的时候会在下面这句话爆炸，修复中
+ * 上面被注释掉的两行用于输出交易所耗gas和gasLimit。这里的gasLimit值莫名只略大于config.json中定义的最小gas值，原因未知
 */
     // Avoid transactions that would take us beyond the block gas limit.
     if (_gasUsed + (bigint)_t.gas() > _header.gasLimit())

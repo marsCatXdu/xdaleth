@@ -247,12 +247,12 @@ void Eth::setTransactionDefaults(TransactionSkeleton& _t)
 }
 /**
  * marsCatXdu Modfied
- * 这个是从 ts 构造交易并发送的，应该是需要改的都改完了——各种交易构造与值传递相关的东西
+ * 从 TransactionSkeleton 构造交易并发送
+ * 
  * 再往后应该就不用改了吧，直接发送了
  * 希望没有检测体积的东西引起爆炸，这玩意炸了可咋调啊。。。。。
- * 
 */
-string Eth::eth_sendTransaction(Json::Value const& _json)		// 这玩意应该算是改完了，这里是直接发送交易的
+string Eth::eth_sendTransaction(Json::Value const& _json)
 {
 	try
 	{
@@ -261,34 +261,25 @@ string Eth::eth_sendTransaction(Json::Value const& _json)		// 这玩意应该算
 		pair<bool, Secret> ar = m_ethAccounts.authenticate(t);
 		if (!ar.first)
 		{
-			// 进来这里了，然后炸了，第一句就炸了
 			h256 txHash = client()->submitTransaction(t, ar.second);	// 提交构造好的交易。。。话说这个 client() 指的咋看也不是 interface 啊
 																		// 是指向 Client 的吧，难不成 Interface 反向派生了？
-			std::cout<<"=== Eth.cpp at client()->submitTransaction() ===\n";	// 直接这么打个标得了……
 			return toJS(txHash);
 		}
 		else
 		{
-			std::cout<<"==============================炸 8 \n";
 			m_ethAccounts.queueTransaction(t);
-			std::cout<<"==============================炸 9 \n";
 			h256 emptyHash;
-			std::cout<<"==============================炸 10 \n";
 			return toJS(emptyHash); // TODO: give back something more useful than an empty hash.
 		}
 	}
 	catch (Exception const&)
 	{
-		std::cout<<"炸 Eth::eth_sendTransaction\n";
 		throw JsonRpcException(exceptionToErrorMessage());
 	}
 }
 /**
  * marsCatXdu Modfied
- * 我怀疑这玩意自己就具有签名同时序列化的功能
- * 不过好像签名了必然就成了RLP了这也很自然地说。。。
- * 
- * 应该是改完了
+ * 进行签名与序列化
 */
 Json::Value Eth::eth_signTransaction(Json::Value const& _json)	
 {
@@ -296,11 +287,11 @@ Json::Value Eth::eth_signTransaction(Json::Value const& _json)
 	{
 		TransactionSkeleton ts = toTransactionSkeleton(_json);
 		setTransactionDefaults(ts);
-		ts = client()->populateTransactionWithDefaults(ts);		// 这上边应该都不用动
+		ts = client()->populateTransactionWithDefaults(ts);
 		pair<bool, Secret> ar = m_ethAccounts.authenticate(ts);
 		Transaction t(ts, ar.second);							// 最终去调用了一个 TransactionBase 的构造器
 		RLPStream s;
-		t.streamRLP(s);											// 似乎被猜对了，在这里调用了一个序列化用的函数
+		t.streamRLP(s);											// 调用了一个序列化用的函数
 		return toJson(t, s.out());
 	}
 	catch (Exception const&)
@@ -322,13 +313,9 @@ Json::Value Eth::eth_inspectTransaction(std::string const& _rlp)
 }
 /**
  * marsCatXdu Modfied
- * 还没改呢，头大（划掉）
- * 					——2018.10.5
- * 
  * 我猜这东西现在用不着改了
  * 下去看了一眼，主要是 jsToBytes() 的工作，而这个玩意基本上（就）是一个转换器，构造了一个八位无符号整数 vector
  * 名其曰 bytes
- * 					——2018.10.6
 */
 string Eth::eth_sendRawTransaction(std::string const& _rlp)
 {

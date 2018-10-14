@@ -1,0 +1,14 @@
+personal.newAccount("123")
+personal.newAccount("123")
+miner.setEtherbase("")
+miner.start(1)
+miner.stop()
+
+personal.unlockAccount("0x36d6A6F096A727b7BD518eF107B1b2b8924134f5", "123", 1000)
+eth.sendTransaction({from:"0x36d6A6F096A727b7BD518eF107B1b2b8924134f5",to: "0xCed054D472CC39CC8386041AE87B9b2684E122A3", value: "123456",extraMsg: "Hello!"})
+eth.getTransaction("0x2c196a89e8fe87a4e8c231530fc5c8ee1f2d99539fd42ef0e866b6702e074923") 
+0x49a93e8825aae470f6e680e6ea032cdbabaa1611638637d7a2c2ccdf98ace588
+eth.getTransaction("0x49a93e8825aae470f6e680e6ea032cdbabaa1611638637d7a2c2ccdf98ace588") 
+console.log(eth.signTransaction({from:"0xDe26cA9E56D406aaA7f89c412bfe8794eEd10bb7",to: "0xCed054D472CC39CC8386041AE87B9b2684E122A3", value: "123456",extraMsg: "Hello!"}).raw)
+
+eth.sendSignedTransaction("0xf86f018504a817c80083015f9094ced054d472cc39cc8386041ae87b9b2684e122a38301e240801ba0c67e35745483521eae74a558d16292f897ca54e7a5b9b3b05ea49b056acb5ad2a01d620dc5265763dd149dfc61ccb38e0742924fe5f9e848a43a71c6d59eb3810a8648656c6c6f21")

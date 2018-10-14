@@ -889,11 +889,8 @@ h256 Client::importTransaction(Transaction const& _t)
     // we'll catch the exception at the RPC level.
     Block currentBlock = block(bc().currentHash());
     Executive e(currentBlock, bc());        // 构造执行器用于应用交易，两个参数分别是当前块和当前链
-    std::cout<<"==============================炸 5.3 \n";
     e.initialize(_t);                       // 将执行器初始化为【为验证交易】的执行器   @BOOM 就是这里炸了！！！
-    std::cout<<"==============================炸 5.4 \n";
     ImportResult res = m_tq.import(_t.rlp());   // 入列
-    std::cout<<"==============================炸 5.5 \n";
     switch (res)
     {
         case ImportResult::Success:

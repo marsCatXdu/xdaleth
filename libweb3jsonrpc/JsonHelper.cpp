@@ -22,6 +22,9 @@
 
 #include "JsonHelper.h"
 
+#include <iostream>
+#include <stdio.h>
+
 #include <libethcore/SealEngine.h>
 #include <libethereum/Client.h>
 #include <libwebthree/WebThree.h>
@@ -392,6 +395,13 @@ TransactionSkeleton toTransactionSkeleton(Json::Value const& _json)
 
     if (!_json["value"].empty())
         ret.value = jsToU256(_json["value"].asString());
+
+    // cout<<"_json[\"value\"]: "<<_json["value"]<<endl<<"_json[\"value\"].asString(): "<<_json["value"].asString()<<endl<<"jsToU256(_json[\"value\"].asString())"<<jsToU256(_json["value"].asString())<<endl;
+    // 上面这句话的输出分别为"0x1e240"、0x1e240、123456  （ethconsole中sendTransaction的value为123456，被提交到aleth的时候已经被改为了0x1e240，应该是ethconsole内部改的）
+    // _json["value"] 这玩意是个啥还需要确认，并不是一个 vector 那么简单，可能已经重载了<<运算符。
+    // 另外，_json["value"].asString()这种写法还需要研究，参数是咋传的。。。。。
+    
+    // 唉真是菜哭了。。。
 
     if (!_json["gas"].empty())
         ret.gas = jsToU256(_json["gas"].asString());
