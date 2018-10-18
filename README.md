@@ -14,6 +14,12 @@ cmake ..               # Configure the project.
 cmake --build .        # Build all default targets.  
 
 ```
+## Private network startup command
+```
+./aleth --config ./config.json -d ./data0  
+(optional while debugging) -v 4 --no-discovery
+```
+
 ## 博客中有以太坊相关技术文章
 www.marscatxdu.com  
 
